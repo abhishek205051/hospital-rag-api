@@ -1,7 +1,7 @@
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import SecretStr
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     llm_base_url: str | None = None
     llm_timeout_seconds: float = 30.0
     openai_api_key: SecretStr | None = None
+    load_sample_data: bool = True
+    max_upload_mb: int = Field(default=10, ge=1, le=100)
 
 
 @lru_cache

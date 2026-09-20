@@ -1,3 +1,4 @@
+import threading
 from dataclasses import dataclass
 
 from app.rag.chunker import Chunk
@@ -21,26 +22,48 @@ class InMemoryVectorStore:
         self._embedder = embedder
         self._chunks: list[Chunk] = []
         self._vectors: list[list[float]] = []
+        self._lock = threading.Lock()
 
     def __len__(self) -> int:
-        return len(self._chunks)
+        with self._lock:
+            return len(self._chunks)
 
     def add_chunks(self, chunks: list[Chunk]) -> None:
         if not chunks:
             return
         vectors = self._embedder.embed([chunk.text for chunk in chunks])
-        self._chunks.extend(chunks)
-        self._vectors.extend(vectors)
+        with self._lock:
+            self._chunks.extend(chunks)
+            self._vectors.extend(vectors)
+
+    def remove_source(self, source: str) -> int:
+        """Delete every chunk that came from one document. Returns how many were removed."""
+        with self._lock:
+            keep = [i for i, chunk in enumerate(self._chunks) if chunk.source != source]
+            removed = len(self._chunks) - len(keep)
+            self._chunks = [self._chunks[i] for i in keep]
+            self._vectors = [self._vectors[i] for i in keep]
+        return removed
+
+    def sources(self) -> dict[str, int]:
+        """Return how many chunks each document has."""
+        counts: dict[str, int] = {}
+        with self._lock:
+            for chunk in self._chunks:
+                counts[chunk.source] = counts.get(chunk.source, 0) + 1
+        return counts
 
     def search(self, query: str, top_k: int = 3) -> list[SearchResult]:
         if top_k <= 0:
             raise ValueError("top_k must be positive")
-        if not self._chunks:
+        with self._lock:
+            entries = list(zip(self._chunks, self._vectors))
+        if not entries:
             return []
         query_vector = self._embedder.embed([query])[0]
         results = [
             SearchResult(chunk=chunk, score=_dot(query_vector, vector))
-            for chunk, vector in zip(self._chunks, self._vectors)
+            for chunk, vector in entries
         ]
         results.sort(key=lambda result: result.score, reverse=True)
         return results[:top_k]

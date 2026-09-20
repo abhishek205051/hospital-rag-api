@@ -30,8 +30,15 @@ def build_llm(settings: Settings) -> LLMClient:
 
 
 @lru_cache
+def get_store() -> InMemoryVectorStore:
+    """Create the shared document store once. Uploaded documents are added to it."""
+    store = InMemoryVectorStore(HashingEmbedder())
+    if get_settings().load_sample_data:
+        store.add_chunks(SAMPLE_CHUNKS)
+    return store
+
+
+@lru_cache
 def get_pipeline() -> RagPipeline:
     """Build the pipeline once and reuse it for every request."""
-    store = InMemoryVectorStore(HashingEmbedder())
-    store.add_chunks(SAMPLE_CHUNKS)
-    return RagPipeline(store=store, llm=build_llm(get_settings()))
+    return RagPipeline(store=get_store(), llm=build_llm(get_settings()))
