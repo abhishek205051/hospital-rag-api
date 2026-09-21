@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+from app.api.audit import router as audit_router
 from app.api.documents import router as documents_router
 from app.api.query import router as query_router
 from app.rag.embeddings import EmbeddingError
@@ -11,6 +12,7 @@ EMBEDDING_UNAVAILABLE_MESSAGE = "The embedding service is unavailable. Please tr
 app = FastAPI(title="Hospital RAG API")
 app.include_router(query_router)
 app.include_router(documents_router)
+app.include_router(audit_router)
 
 
 @app.exception_handler(EmbeddingError)

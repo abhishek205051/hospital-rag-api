@@ -3,6 +3,7 @@ from functools import lru_cache
 from openai import OpenAI
 
 from app.config import Settings, get_settings
+from app.core.audit import AuditLog
 from app.rag.embeddings import Embedder, HashingEmbedder, OpenAICompatibleEmbedder
 from app.rag.llm import FakeLLM, LLMClient, OpenAICompatibleLLM
 from app.rag.pipeline import RagPipeline
@@ -75,3 +76,9 @@ def get_pipeline() -> RagPipeline:
         llm=build_llm(settings),
         min_score=settings.min_retrieval_score,
     )
+
+
+@lru_cache
+def get_audit_log() -> AuditLog:
+    """Open the audit log once and reuse it."""
+    return AuditLog(get_settings().audit_path)
