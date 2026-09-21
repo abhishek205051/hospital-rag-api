@@ -40,7 +40,8 @@ def upload_document(
     except DocumentError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
-    replaced = store.replace_source(filename, document.chunks)
+    replaced = store.remove_source(filename) > 0
+    store.add_chunks(document.chunks)
     return DocumentUploadResponse(
         filename=filename,
         pages=document.pages,
@@ -53,7 +54,7 @@ def upload_document(
 @router.get("/documents", response_model=DocumentListResponse)
 def list_documents(store: StoreDep) -> DocumentListResponse:
     counts = store.sources()
-    documents = [
-        DocumentInfo(source=name, chunks=count) for name, count in sorted(counts.items())
-    ]
-    return DocumentListResponse(documents=documents, total_chunks=len(store))
+    return DocumentListResponse(
+        documents=[DocumentInfo(source=name, chunks=count) for name, count in sorted(counts.items())],
+        total_chunks=len(store),
+    )

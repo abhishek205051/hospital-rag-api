@@ -1,0 +1,17 @@
+[
+  {"source": "visiting_policy.pdf", "page": 1, "text": "ICU visiting hours are 4 to 6 PM. Only two visitors are allowed at the bedside at a time."},
+  {"source": "visiting_policy.pdf", "page": 2, "text": "General ward visiting hours are 10 AM to 12 noon and 5 PM to 7 PM. Children under 12 are not allowed in the isolation ward."},
+  {"source": "hand_hygiene.pdf", "page": 1, "text": "Staff must clean their hands before touching a patient, before any clean procedure, after exposure to body fluids, after touching a patient, and after touching the patient's surroundings."},
+  {"source": "hand_hygiene.pdf", "page": 2, "text": "When hands are visibly dirty, wash them with soap and water for at least 40 seconds. Otherwise use an alcohol-based hand rub for at least 20 seconds."},
+  {"source": "discharge_sop.pdf", "page": 1, "text": "Discharge planning starts on the day of admission. The nurse in charge confirms the expected discharge date with the treating team."},
+  {"source": "discharge_sop.pdf", "page": 2, "text": "On the day of discharge the billing desk prepares the final bill and the pharmacy issues take-home medicines with written instructions. A patient who leaves against medical advice must sign a declaration form."},
+  {"source": "discharge_sop.pdf", "page": 3, "text": "Follow-up appointments are booked before the patient leaves the ward."},
+  {"source": "equipment_maintenance.pdf", "page": 1, "text": "To request a repair, staff submit a maintenance request form to the biomedical engineering department. Breakdowns of life-support equipment are reported by phone to the biomedical on-call desk immediately."},
+  {"source": "equipment_maintenance.pdf", "page": 2, "text": "Faulty equipment must be tagged out of service and must not be used until the biomedical team completes a safety inspection."},
+  {"source": "fire_safety.pdf", "page": 1, "text": "If there is a fire, rescue people in danger, raise the alarm, contain the fire by closing doors, and extinguish it only if it is safe. Do not use lifts; use the nearest staircase."},
+  {"source": "fire_safety.pdf", "page": 2, "text": "Fire drills are held every six months in each department. Assembly points are marked on the ground floor."},
+  {"source": "sharps_disposal.pdf", "page": 1, "text": "Used needles and blades go into the puncture-proof sharps container at the point of use. Never recap or bend needles."},
+  {"source": "sharps_disposal.pdf", "page": 2, "text": "Sharps containers are sealed when three quarters full and collected by housekeeping every evening."},
+  {"source": "shift_handover.pdf", "page": 1, "text": "Nursing handover takes place at 7 AM, 2 PM and 9 PM. The outgoing nurse reviews each patient with the incoming nurse at the bedside."},
+  {"source": "patient_identification.pdf", "page": 1, "text": "Check two identifiers, the full name and the date of birth, against the wristband before giving any treatment or taking a sample."}
+]

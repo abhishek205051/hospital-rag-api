@@ -36,6 +36,20 @@ class InMemoryVectorStore:
             self._chunks.extend(chunks)
             self._vectors.extend(vectors)
 
+    def replace_source(self, source: str, chunks: list[Chunk]) -> bool:
+        """Swap one document's chunks for new ones.
+
+        The new vectors are computed first, so if embedding fails the old
+        document stays untouched. Returns True if an old version existed.
+        """
+        vectors = self._embedder.embed([chunk.text for chunk in chunks]) if chunks else []
+        with self._lock:
+            keep = [i for i, chunk in enumerate(self._chunks) if chunk.source != source]
+            replaced = len(keep) != len(self._chunks)
+            self._chunks = [self._chunks[i] for i in keep] + list(chunks)
+            self._vectors = [self._vectors[i] for i in keep] + vectors
+        return replaced
+
     def remove_source(self, source: str) -> int:
         """Delete every chunk that came from one document. Returns how many were removed."""
         with self._lock:

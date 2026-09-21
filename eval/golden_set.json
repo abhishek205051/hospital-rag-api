@@ -1,0 +1,22 @@
+[
+  {"question": "When can family members see patients in intensive care?", "expected_source": "visiting_policy.pdf"},
+  {"question": "How many people may stay at a bedside in the ICU?", "expected_source": "visiting_policy.pdf"},
+  {"question": "Can a young child visit the isolation ward?", "expected_source": "visiting_policy.pdf"},
+  {"question": "When do nurses have to sanitize their hands?", "expected_source": "hand_hygiene.pdf"},
+  {"question": "How long should hands be scrubbed with soap and water?", "expected_source": "hand_hygiene.pdf"},
+  {"question": "What happens on the day a patient goes home?", "expected_source": "discharge_sop.pdf"},
+  {"question": "Which form is needed if a patient leaves against medical advice?", "expected_source": "discharge_sop.pdf"},
+  {"question": "When are follow-up appointments arranged?", "expected_source": "discharge_sop.pdf"},
+  {"question": "How do I report a broken ventilator?", "expected_source": "equipment_maintenance.pdf"},
+  {"question": "Can a faulty machine stay in use before it is checked?", "expected_source": "equipment_maintenance.pdf"},
+  {"question": "What should staff do when a fire breaks out?", "expected_source": "fire_safety.pdf"},
+  {"question": "How often are evacuation drills held?", "expected_source": "fire_safety.pdf"},
+  {"question": "Where do used needles go?", "expected_source": "sharps_disposal.pdf"},
+  {"question": "When are full sharps bins collected?", "expected_source": "sharps_disposal.pdf"},
+  {"question": "At what times does the nursing shift change?", "expected_source": "shift_handover.pdf"},
+  {"question": "How do we make sure we have the right patient before a procedure?", "expected_source": "patient_identification.pdf"},
+  {"question": "What is on the cafeteria menu today?", "expected_source": null},
+  {"question": "How much does it cost to park a car?", "expected_source": null},
+  {"question": "Who won the cricket match yesterday?", "expected_source": null},
+  {"question": "What is the annual leave policy for doctors?", "expected_source": null}
+]
