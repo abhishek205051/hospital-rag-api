@@ -11,6 +11,7 @@ def isolated_settings(monkeypatch):
     monkeypatch.setenv("MIN_RETRIEVAL_SCORE", "0.2")
     monkeypatch.setenv("LOAD_SAMPLE_DATA", "true")
     monkeypatch.setenv("MAX_UPLOAD_MB", "10")
+    monkeypatch.setenv("STORE_BACKEND", "memory")
     get_settings.cache_clear()
     get_store.cache_clear()
     get_pipeline.cache_clear()

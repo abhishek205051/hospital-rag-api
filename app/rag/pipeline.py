@@ -4,7 +4,7 @@ from app.core.guardrails import REFUSAL_MESSAGE, check_question
 from app.core.prompts import build_prompt
 from app.core.redaction import redact
 from app.rag.llm import LLMClient
-from app.rag.vector_store import InMemoryVectorStore
+from app.rag.store_types import VectorStore
 
 NOT_FOUND_MESSAGE = "I could not find this in the provided documents."
 SNIPPET_LENGTH = 200
@@ -31,7 +31,7 @@ class RagPipeline:
 
     def __init__(
         self,
-        store: InMemoryVectorStore,
+        store: VectorStore,
         llm: LLMClient,
         top_k: int = 3,
         min_score: float = 0.2,

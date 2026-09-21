@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     embedding_model: str = "text-embedding-3-small"
     embedding_base_url: str | None = None
     min_retrieval_score: float = Field(default=0.2, ge=0.0, le=1.0)
+    store_backend: Literal["memory", "sqlite"] = "sqlite"
+    store_path: str = "data/store.db"
 
 
 @lru_cache

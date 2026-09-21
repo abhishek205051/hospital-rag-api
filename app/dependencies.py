@@ -7,6 +7,8 @@ from app.rag.embeddings import Embedder, HashingEmbedder, OpenAICompatibleEmbedd
 from app.rag.llm import FakeLLM, LLMClient, OpenAICompatibleLLM
 from app.rag.pipeline import RagPipeline
 from app.rag.sample_data import SAMPLE_CHUNKS
+from app.rag.sqlite_store import SqliteVectorStore
+from app.rag.store_types import VectorStore
 from app.rag.vector_store import InMemoryVectorStore
 
 PLACEHOLDER_ANSWER = (
@@ -42,11 +44,24 @@ def build_embedder(settings: Settings) -> Embedder:
     return OpenAICompatibleEmbedder(client=client, model=settings.embedding_model)
 
 
+def embedder_id(settings: Settings) -> str:
+    """A short name for the embedding setting, saved inside the database file."""
+    if settings.embedding_provider == "hashing":
+        return "hashing"
+    return f"openai:{settings.embedding_model}"
+
+
 @lru_cache
-def get_store() -> InMemoryVectorStore:
+def get_store() -> VectorStore:
     """Create the shared document store once. Uploaded documents are added to it."""
-    store = InMemoryVectorStore(build_embedder(get_settings()))
-    if get_settings().load_sample_data:
+    settings = get_settings()
+    embedder = build_embedder(settings)
+    store: VectorStore
+    if settings.store_backend == "sqlite":
+        store = SqliteVectorStore(embedder, settings.store_path, embedder_id(settings))
+    else:
+        store = InMemoryVectorStore(embedder)
+    if settings.load_sample_data and len(store) == 0:
         store.add_chunks(SAMPLE_CHUNKS)
     return store
 

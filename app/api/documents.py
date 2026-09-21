@@ -6,12 +6,12 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from app.config import Settings, get_settings
 from app.dependencies import get_store
 from app.rag.loader import DocumentError, ingest_pdf_bytes
-from app.rag.vector_store import InMemoryVectorStore
+from app.rag.store_types import VectorStore
 from app.schemas.documents import DocumentInfo, DocumentListResponse, DocumentUploadResponse
 
 router = APIRouter()
 
-StoreDep = Annotated[InMemoryVectorStore, Depends(get_store)]
+StoreDep = Annotated[VectorStore, Depends(get_store)]
 SettingsDep = Annotated[Settings, Depends(get_settings)]
 
 
