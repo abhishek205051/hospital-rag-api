@@ -29,6 +29,3 @@ async def store_mismatch_handler(request: Request, exc: Exception) -> JSONRespon
 def health() -> dict[str, str]:
     return {"status": "ok"}
 
-@app.get("/")
-def root():
-    return {"message": "Hospital RAG API is running"}
